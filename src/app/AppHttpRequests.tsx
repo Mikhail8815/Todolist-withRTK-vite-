@@ -1,24 +1,42 @@
 import {type ChangeEvent, type CSSProperties, useEffect, useState} from 'react'
 import Checkbox from '@mui/material/Checkbox'
-import {CreateItemForm} from '@/common/components/CreateItemForm/CreateItemForm'
-import {EditableSpan} from '@/common/components/EditableSpan/EditableSpan'
-import axios from "axios";
+
+import { CreateItemForm, EditableSpan } from '@/common/components';
+import {Todolist} from "@/features/todolists/api/todolistApi.types.ts";
+import {todolistApi} from "@/features/todolists/api/todolistApi.ts";
+
 
 export const AppHttpRequests = () => {
-  const [todolists, setTodolists] = useState<any>([])
+
+
+  const [todolists, setTodolists] = useState<Todolist[]>([])
   const [tasks, setTasks] = useState<any>({})
 
   useEffect(() => {
-    axios.get('https://social-network.samuraijs.com/api/1.1/todo-lists').then(res => {
-      console.log(res.data)
+    todolistApi.getTodolists().then(res => {
+      setTodolists(res.data)
     })
   }, [])
 
-  const createTodolist = (title: string) => {}
+  const createTodolist = (title: string) => {
+    todolistApi.createTodolists(title).then(res => {
+       setTodolists([res.data.data.item, ...todolists])
+    })
+  }
 
-  const deleteTodolist = (id: string) => {}
+  const deleteTodolist = (id: string) => {
+    todolistApi.deleteTodolist(id).then(() => {
+      // const todoId = res.data.data.id
+      setTodolists(todolists.filter(item => item.id !== id))
+    })
+  }
 
-  const changeTodolistTitle = (id: string, title: string) => {}
+  const changeTodolistTitle = (id: string, title: string) => {
+    todolistApi.changeTodolistTitle(id, title).then(() => {
+      // const todoId = res.data.data.id
+      setTodolists(todolists.map(item => item.id === id ? {...item, title: title} : item))
+    })
+  }
 
   const createTask = (todolistId: string, title: string) => {}
 
@@ -31,7 +49,7 @@ export const AppHttpRequests = () => {
   return (
       <div style={{margin: '20px'}}>
         <CreateItemForm onCreateItem={createTodolist}/>
-        {todolists.map((todolist: any) => (
+        {todolists.map((todolist) => (
             <div key={todolist.id} style={container}>
               <div>
                 <EditableSpan value={todolist.title}
@@ -63,3 +81,6 @@ const container: CSSProperties = {
   justifyContent: 'space-between',
   flexDirection: 'column',
 }
+
+
+

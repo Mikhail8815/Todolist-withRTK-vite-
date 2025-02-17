@@ -1,4 +1,3 @@
-import {useAppDispatch} from '@/common/hooks/useAppDispatch'
 import {EditableSpan} from '@/common/components/EditableSpan/EditableSpan'
 import {
   changeTodolistTitleAC,
@@ -8,6 +7,7 @@ import {
 import DeleteIcon from '@mui/icons-material/Delete'
 import IconButton from '@mui/material/IconButton'
 import styles from './TodolistTitle.module.css'
+import {useAppDispatch} from "@/common/hooks";
 
 type Props = {
   todolist: Todolist

@@ -1,1 +1,1 @@
-export {getTheme} from "@/common/theme/theme.ts";
+export { getTheme } from "./theme"

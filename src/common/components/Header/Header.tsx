@@ -1,5 +1,4 @@
-import { changeThemeModeAC } from "@/app/app-reducer"
-import { selectThemeMode } from "@/app/app-selectors"
+import { changeThemeModeAC, selectThemeMode } from "@/app/app-slice.ts"
 import { useAppDispatch, useAppSelector } from "@/common/hooks"
 import { containerSx } from "@/common/styles"
 import { getTheme } from "@/common/theme"
@@ -19,7 +18,7 @@ export const Header = () => {
   const theme = getTheme(themeMode)
 
   const changeMode = () => {
-    dispatch(changeThemeModeAC({ themeMode: themeMode == "light" ? "dark" : "light" }))
+    dispatch(changeThemeModeAC({ themeMode: themeMode === "light" ? "dark" : "light" }))
   }
 
   return (

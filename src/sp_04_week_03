@@ -107,6 +107,10 @@
 //     </Provider>,
 // )
 
+
+// Правильный ответ: return instance.get<Comment[]>("comments")
+// Добавлено "s" в конце "comment". Сервер не отвечал, потому что обращались по неправильному адресу.
+
                                                      //Задача №2
 
 // Вопрос:
@@ -224,6 +228,10 @@
 //         <App />
 //     </Provider>,
 // )
+
+//Правильный ответ: rejected: (state, action) => {
+                              state.error = action.payload || "Some error occurred"
+                            }
 
                                                           //Задача №3
 
@@ -370,7 +378,7 @@
 //             </div>
 //         </>
 //     )
-// }
+// +}
 // // Store
 // const store = configureStore({
 //     reducer: {
@@ -386,6 +394,8 @@
 //         <App />
 //     </Provider>,
 // )
+
+// Правильный ответ: disabled={post.disabled}
 
                                                        //Задача №4
 
@@ -520,6 +530,10 @@
 //     </Provider>,
 // )
 
+// Правильный ответ: settled: (state) => {
+                               state.isLoading = false
+                             }
+
                                                         //Задача №5
 
 // Вопрос:
@@ -548,6 +562,10 @@
 // // const getFirstElement = (arr: T): T => {
 // //   return arr
 // // }
+
+// Предположительно правильный ответ: const getFirstElement = <T>(array: T[]): T | undefined => {
+                                        return array.length ? array[0] : undefined;
+                                      }
 
                                                          //Задача №6
 
@@ -731,6 +749,10 @@
 //     </Provider>,
 // )
 
+//Правильный ответ: const handleErrors = (dispatch: Dispatch, error: string) => {
+                      dispatch(setError({ error }))
+                    }
+
                                                       //Задача №7
 
 // Вопрос:
@@ -849,3 +871,14 @@
 //         <Login />
 //     </Provider>,
 // )
+
+// Правильный ответ:
+   1)dispatch(setError({ error: error.response.data.errors }))
+   Предположительно правильный ответ этот : thunkAPI.dispatch(setError({ error: error.response.data.errors }))
+
+   2)    if (axios.isAxiosError(error)) {
+                 dispatch(setError({ error: error.response?.data.errors }))
+               }
+  ИЛИ ЭТОТ: if (axios.isAxiosError(error)) {
+                        thunkAPI.dispatch(setError({ error: error.response?.data.errors }))
+                      }
